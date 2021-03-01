@@ -10,7 +10,7 @@ int Ax1 = 0, Ay1 = 0, Ax2 = 0, Ay2 = 0, Bx1 = 0, By1 = 0, Bx2 = 0, By2 = 0;
 double Aper = 0, Aarea = 0, Bper = 0, Barea = 0;
 const double pi = 3.1415926535;
 
-int circle(int x, int y, float r)
+void circle(int x, int y, float r)
 { // Функция пока не используется и работает только для 2х окружностей.
 
     if (fl == 1) {
@@ -79,11 +79,11 @@ int main()
 
     for (repeat = 1; repeat <= fin; repeat++) {
         char input[80];
-        int fin = 0, repeat = 0, i, j, j2, in = 1, end = 0,
+        int  i, j, j2, in = 1, end = 0,
             fl1 = 0, com = 0, err1 = 0, err3 = 0, err4 = 0,
             err6 = 1, err7 = 0, XtoY = 0;
         char* cmd, * chX, * chY, * chR;
-        double x = 0, y = 0;
+        
 
         printf("\n~~~\n");
 
