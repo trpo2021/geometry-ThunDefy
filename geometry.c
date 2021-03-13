@@ -5,247 +5,200 @@
 #include <stdlib.h>
 #include <string.h>
 
-int fl = 1;
-int Ax1 = 0, Ay1 = 0, Ax2 = 0, Ay2 = 0, Bx1 = 0, By1 = 0, Bx2 = 0, By2 = 0;
-double Aper = 0, Aarea = 0, Bper = 0, Barea = 0;
-const double pi = 3.1415926535;
-
-void circle(int x, int y, float r)
-{ // Функция пока не используется и работает только для 2х окружностей.
-
-    if (fl == 1) {
-        Ax1 = x + r;
-        Ay1 = y + r;
-        Ax2 = x - r;
-        Ay2 = y - r;
-
-        Aper = 2 * pi * r;
-        Aarea = pi * (r * r);
-    }
-    if (fl == 2) {
-        Bx1 = x + r;
-        By1 = y + r;
-        Bx2 = x - r;
-        By2 = y - r;
-
-        Bper = 2 * pi * r;
-        Barea = pi * (r * r);
-
-        printf("\nПериметр окружности А = %2.4f", Aper);
-        printf("\nПлощадь окружности А = %2.4f\n", Aarea);
-
-        printf("\nПериметр окружности B = %2.4f", Bper);
-        printf("\nПлощадь окружности B = %2.4f\n", Barea);
-
-        if (Ax1 > Bx2 && Ax2 < Bx1 && Ay1 > By2 && Ay2 < By1)
-            printf("\n~Окружности пересекаются~\n");
-        else
-            printf("~Пересечений нет~\n");
-    }
-    fl++;
-}
-
 char* strlwr(char* str) // Функция которая переводит все буквы в нижний регистр
 {
-    unsigned char* p = (unsigned char*)str;
+	unsigned char* p = (unsigned char*)str;
 
-    while (*p) {
-        *p = tolower((unsigned char)*p);
-        p++;
-    }
+	while (*p) {
+		*p = tolower((unsigned char)*p);
+		p++;
+	}
 
-    return str;
+	return str;
 }
 
 int main()
 {
-    char intg[] = "1234567890", 
-        letter[]
-        = "QqWwEeRrTtYyUuIiOoPpAaSsDdFfGgHhJjKkLlZzXxCcVvBbNnMm~!@#№$;%%^:"
-        "&?*=+_}{|)(?><\"\'";
-    int fin = 2,
-        repeat; // Пока не работает функция самостоятельного выбора колличества,
-                // его можно вводить в коде тут: fin = ' '.
+	char intg[] = "1234567890",
+		letter[]
 
-     //printf("How many circles?: "); // Выбор - сколько фигур будет вводиться
-     //scanf("%d", &fin);
-     //if (isdigit(fin) != 0) {
-     //printf("You can only enter integer. Please try again\n");
-     //return 0;
-     //}
+		= "QqWwEeRrTtYyUuIiOoPpAaSsDdFfGgHhJjKkLlZzXxCcVvBbNnMm~!@#№$;%%^:"
+		"&?*=+_}{|)(?><\"\'";
 
-    printf("\nEnter the point X , point Y and radius for each "
-        "circle.\nFor example: circle(0 0, 1.5)\n");
+	printf("\nEnter the point X , point Y and radius for each "
+		"circle.\nFor example: circle(0 0, 1.5)\n");
 
-    for (repeat = 1; repeat <= fin; repeat++) {
-        char input[80];
-        int  i, j, j2, in = 1, end = 0,
-            fl1 = 0, com = 0, err1 = 0, err3 = 0, err4 = 0,
-            err6 = 1, err7 = 0, XtoY = 0;
-        char* cmd, * chX, * chY, * chR;
-        
+	while (1) {
+		char input[80];
+		int  i, j, j2, in = 1, end = 0,
+			fl1 = 0, com = 0, err1 = 0, err3 = 0, err4 = 0,
+			err6 = 1, err7 = 0, XtoY = 0;
+		char* cmd, * chX, * chY, * chR;
 
-        printf("\n~~~\n");
+		printf("\n~~~~~~~~~~~~~~~~~~~\n");
 
-        gets(input);
-        
+		gets(input);
 
-        cmd = malloc(1);
-        strcpy(cmd, input);
-        
-        cmd = strtok(cmd, "(");
-        cmd = strtok(cmd, " ");
-        strlwr(cmd);
+		cmd = malloc(200);
+		strcpy(cmd, input);
 
-        if (strcmp(cmd, "circle") != 0) {
-            printf("expected 'circle' not a '%s'\n", cmd);
-            return 0;
-        }
+		cmd = strtok(cmd, "(");
+		cmd = strtok(cmd, " ");
+		strlwr(cmd);
+		if (strcmp(cmd, "f") == 0 || strcmp(cmd, "F") == 0) {
+			printf("\nData entry completed.\n");
+			break;
+		}
 
-        for (i = 0; input[i] != '\0'; i++) {
-            if (input[i] == '(')
-                fl1 = 1;
-            end++;
-        }
+		if (strcmp(cmd, "circle") != 0) {
+			printf("expected 'circle' not a '%s'\n", cmd);
+			return 0;
+		}
 
-        if (fl1 == 0) {
-            printf("Error: expected '('\n");
-            err1 = 1;
-        }
+		for (i = 0; input[i] != '\0'; i++) {
+			if (input[i] == '(')
+				fl1 = 1;
+			end++;
+		}
 
-        if (fl1 == 1) {
-            if (input[end - 1] != ')') {
-                printf("Error at column %d: expected ')' in the end of function\n", end);
-                return 0;
-            }
+		if (fl1 == 0) {
+			printf("Error: expected '('\n");
+			err1 = 1;
+		}
 
-            for (i = 0; input[i] != '('; i++)
-                in++;
+		if (fl1 == 1) {
+			if (input[end - 1] != ')') {
+				printf("Error at column %d: expected ')' in the end of function\n", end);
+				return 0;
+			}
 
-            for (i = in; input[i] != ')'; i++) {
-                if (input[i] == ',')
-                    err6 = 0;
-            }
-            if (err6 == 1) {
-                printf("Error: expected ','\n");
-                return 0;
-            }
+			for (i = 0; input[i] != '('; i++)
+				in++;
 
-            for (; in != end - 1; in++) { // Проверки в скобках (  )
-                for (j = 0; j < sizeof(letter) - 1; j++) {
-                    if (input[in] == letter[j]) {
-                        printf("Error at column %d expected '<integer>' or "
-                            "'<double>' , now '%c'\n",
-                            in,
-                            input[in]);
-                        err3 = 1;
-                    }
-                }
+			for (i = in; input[i] != ')'; i++) {
+				if (input[i] == ',')
+					err6 = 0;
+			}
+			if (err6 == 1) {
+				printf("Error: expected ','\n");
+				return 0;
+			}
 
-                if (input[in] == ',') {
-                    com++;
-                    if (com > 1) {
-                        printf("Error at column %d extra ','\n", in);
-                        err4 = 1;
-                    }
-                }
-            }
-        }
+			for (; in != end - 1; in++) { // Проверки в скобках (  )
+				for (j = 0; j < sizeof(letter) - 1; j++) {
+					if (input[in] == letter[j]) {
+						printf("Error at column %d expected '<integer>' or "
+							"'<double>' , now '%c'\n",
+							in,
+							input[in]);
+						err3 = 1;
+					}
+				}
 
-        if (err1 == 0  && err3 == 0 && err4 == 0 && err6 == 0) {
-            for (i = 0, in = 0; input[i] != '('; i++)
-                in++;
-            chX = malloc(1);
-            chY = malloc(1);
-            in++;
-            for (j = 0, j2 = 0; input[in] != ','; in++) {
-                if (XtoY == 0) {
-                    chX[j] = input[in];
-                    j++;
-                    if (atoi(chX) != 0 && input[in] == ' ')
-                        XtoY = 1;
-                }
-                if (XtoY == 1) {
-                    chY[j2] = input[in];
-                    j2++;
-                    if (atoi(chX) != 0 && atoi(chY) != 0 && input[in] == ' ') {
-                        for (i = in; input[i] != ','; i++) {
-                            if (input[i] != ' ') {
-                                printf("Error at column %d: unexpected token\n",
-                                    i);
-                                return 0;
-                            }
-                        }
-                    }
-                }
-            }
+				if (input[in] == ',') {
+					com++;
+					if (com > 1) {
+						printf("Error at column %d extra ','\n", in);
+						err4 = 1;
+					}
+				}
+			}
+		}
 
-            for (i = 0; i < sizeof(chX) - 1; i++) {
-                for (j = 0; j < sizeof(intg) - 1; j++) {
-                    if (chX[i] == intg[j]) err7++;
-                }
-            }
-            if (err7 == 0) {
-                printf("Error : miss token X\n"); return 0;
-            }
-            err7 = 0;
+		if (err1 == 0 && err3 == 0 && err4 == 0 && err6 == 0) {
+			for (i = 0, in = 0; input[i] != '('; i++)
+				in++;
+			chX = malloc(10 * sizeof(int));
+			chY = malloc(10 * sizeof(int));
+			int size = 10 * sizeof(int) - 1;
+			in++;
+			for (j = 0, j2 = 0; input[in] != ','; in++) {
+				if (XtoY == 0) {
+					chX[j] = input[in];
+					j++;
+					if (atoi(chX) != 0 && input[in] == ' ')
+						XtoY = 1;
+				}
+				if (XtoY == 1) {
+					chY[j2] = input[in];
+					j2++;
+					if (atoi(chX) != 0 && atoi(chY) != 0 && input[in] == ' ') {
+						for (i = in; input[i] != ','; i++) {
+							if (input[i] != ' ') {
+								printf("Error at column %d: unexpected token\n",
+									i);
+								return 0;
+							}
+						}
+					}
+				}
+			}
+			for (i = 0; i < size; i++) {
+				for (j = 0; j < sizeof(intg) - 1; j++) {
+					if (chX[i] == intg[j]) err7++;
+				}
+			}
+			if (err7 == 0) {
+				printf("Error : miss token X\n"); return 0;
+			}
+			err7 = 0;
 
-            for (i = 0; i < sizeof(chY)-1 ; i++) {
-                for (j = 0; j < sizeof(intg) - 1; j++) {
-                    if (chY[i] == intg[j]) err7++;
-                }
-            }
-            if (err7 == 0) { 
-                printf("Error : miss token Y, y = %c\n i =%d\n", chY[i], i); 
-                return 0; 
-            }
-            err7 = 0;
+			for (i = 0; i < size; i++) {
+				for (j = 0; j < sizeof(intg) - 1; j++) {
+					if (chY[i] == intg[j]) err7++;
+				}
+			}
+			if (err7 == 0) {
+				printf("Error : miss token Y\n");
+				return 0;
+			}
+			err7 = 0;
 
-            chR = malloc(10);
-            for (j = 0, in++; input[in] != ')'; in++) {
-                chR[j] = input[in];
-                j++;
+			chR = malloc(10);
+			for (j = 0, in++; input[in] != ')'; in++) {
+				chR[j] = input[in];
+				j++;
 
-                if (atof(chR) != 0 && input[in] == ' ') {
-                    for (i = in; input[i] != ')'; i++) {
-                        if (input[i] != ' ') {
-                            printf("Error at column %d: unexpected token\n", i);
-                            return 0;
-                        }
-                    }
-                }
-            }
+				if (atof(chR) != 0 && input[in] == ' ') {
+					for (i = in; input[i] != ')'; i++) {
+						if (input[i] != ' ') {
+							printf("Error at column %d: unexpected token\n", i);
+							return 0;
+						}
+					}
+				}
+			}
 
-            for (i = 0; i < sizeof(chR) - 1; i++) {
-                for (j = 0; j < sizeof(intg) - 1; j++) {
-                    if (chR[i] == intg[j]) err7++;
-                }
-            }
-            if (err7 == 0) {
-                printf("Error : miss token R\n"); return 0;
-            }
+			for (i = 0; i < size; i++) {
+				for (j = 0; j < sizeof(intg) - 1; j++) {
+					if (chR[i] == intg[j]) err7++;
+				}
+			}
+			if (err7 == 0) {
+				printf("Error : miss token R\n"); return 0;
+			}
 
-            
-            double x = (double)atof(chX);
-            double y = (double)atof(chY);
-            double r = (double)atof(chR);
-            if (r < 0 || r == 0) { printf("Error : token R must be more than zero \n"); return 0; }
+			double x = (double)atof(chX);
+			double y = (double)atof(chY);
+			double r = (double)atof(chR);
+			if (r < 0 || r == 0) { printf("Error : token R must be more than zero \n"); return 0; }
 
-            printf("\nCmd = %s\n", cmd);
-            printf("\nX = %5.3lf\n", x);
-            printf("Y = %5.3lf\n", y);
-            printf("R = %5.3lf\n", r);
+			printf("\nCmd = %s\n", cmd);
+			printf("\nX = %5.3lf\n", x);
+			printf("Y = %5.3lf\n", y);
+			printf("R = %5.3lf\n", r);
+			printf("\nIf you're done enter F\n");
 
-        }
-        else
-            return 0;
-
-        chX = NULL;
-
-        chY = NULL;
-
-        chR = NULL;
-    }
+			free(chX);
+			chX=NULL;
+			free(chY);
+			chY=NULL;
+			free(chR);
+			chR=NULL;
+			free(cmd);
+			cmd=NULL;
+		}
+		else
+			return 0;
+	}
 }
-
-
