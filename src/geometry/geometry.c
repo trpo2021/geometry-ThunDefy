@@ -1,9 +1,11 @@
+﻿#include "LibSource.h"
 #include <ctype.h>
 #include <locale.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 char* strlwr(char* str) // Функция которая переводит все буквы в нижний регистр
 {
@@ -85,7 +87,7 @@ int main()
 			}
 
 			for (; in != end - 1; in++) { // Проверки в скобках (  )
-				for (j = 0; j < sizeof(letter) - 1; j++) {
+				for (j = 0; j < (int)sizeof(letter) - 1; j++) {
 					if (input[in] == letter[j]) {
 						printf("Error at column %d expected '<integer>' or "
 							"'<double>' , now '%c'\n",
@@ -134,7 +136,7 @@ int main()
 				}
 			}
 			for (i = 0; i < size; i++) {
-				for (j = 0; j < sizeof(intg) - 1; j++) {
+				for (j = 0; j < (int)sizeof(intg) - 1; j++) {
 					if (chX[i] == intg[j]) err7++;
 				}
 			}
@@ -144,7 +146,7 @@ int main()
 			err7 = 0;
 
 			for (i = 0; i < size; i++) {
-				for (j = 0; j < sizeof(intg) - 1; j++) {
+				for (j = 0; j < (int)sizeof(intg) - 1; j++) {
 					if (chY[i] == intg[j]) err7++;
 				}
 			}
@@ -170,8 +172,8 @@ int main()
 			}
 
 			for (i = 0; i < size; i++) {
-				for (j = 0; j < sizeof(intg) - 1; j++) {
-					if (chR[i] == intg[j]) err7++;
+				     for (j = 0; j < (int)sizeof(intg) - 1; j++) {
+				if (chR[i] == intg[j]) err7++;
 				}
 			}
 			if (err7 == 0) {
@@ -187,18 +189,18 @@ int main()
 			printf("\nX = %5.3lf\n", x);
 			printf("Y = %5.3lf\n", y);
 			printf("R = %5.3lf\n", r);
+			printf("Area = %5.3lf\n", Area(r));
+			printf("Perimetr = %5.3lf\n", Peri(r));
 			printf("\nIf you're done enter F\n");
 
 			free(chX);
-			chX=NULL;
 			free(chY);
-			chY=NULL;
 			free(chR);
-			chR=NULL;
 			free(cmd);
-			cmd=NULL;
-		}
+		}	
+			
 		else
 			return 0;
 	}
 }
+
