@@ -1,3 +1,3 @@
 #pragma once
-double   Area(double r);
-double    Peri(double r);
+double Area(double r);
+double Peri(double r);
