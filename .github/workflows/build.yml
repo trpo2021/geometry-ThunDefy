@@ -15,5 +15,6 @@ jobs:
       - name: Build application
         run: make
         
+        
       - name: Test
-	run: make test && ./bin/test
+        run: make test && ./bin/test
