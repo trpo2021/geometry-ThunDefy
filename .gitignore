@@ -13,3 +13,7 @@
 *.a
 
 geometry
+
+circles_data.txt
+
+bin/test
