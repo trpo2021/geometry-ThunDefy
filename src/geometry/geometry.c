@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
 int main()
 {
 	FILE* data;
@@ -38,6 +35,6 @@ int main()
 			AreaAndPer(r);
 			printf("\nIf you're done enter F\n");
 		}
-	}	
+	}
 	if (all_fine) interects(num_fig);
 }

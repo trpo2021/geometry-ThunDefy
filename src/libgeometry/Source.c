@@ -73,10 +73,10 @@ int interects(int num_fig)
 			Bx1 = data[j][2] + data[j][3];
 			Bx2 = data[j][1] - data[j][3];
 			Bx2 = data[j][2] - data[j][3];
-			if (Ax1 >= Bx2 && Ax2 <= Bx1 && Ay1 >= By2 && Ay2 <= By1){
+			if (Ax1 >= Bx2 && Ax2 <= Bx1 && Ay1 >= By2 && Ay2 <= By1) {
 				count_interects++;
 				printf("\n~ Circle %d intersects circle %d ~\n", Anum, Bnum);
-				}
+			}
 		}
 	}
 	fclose(dt);
@@ -268,4 +268,3 @@ void save_data(int num_fig, double x, double y, double r) {
 	fputs(" ", data);
 	fclose(data);
 }
-
